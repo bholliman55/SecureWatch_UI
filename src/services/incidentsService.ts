@@ -21,10 +21,10 @@ export const incidentsService = {
   async getIncidents(): Promise<Incident[]> {
     const { data, error } = await supabase
       .from('incidents')
-      .select('*')
+      .select('id, title, severity, status, category, description, affected_systems, detected_at, resolved_at, assigned_to, impact, response_actions, created_at, updated_at')
       .order('detected_at', { ascending: false });
 
-    if (error) throw error;
+    if (error) throw new Error(error.message);
     return data || [];
   },
 

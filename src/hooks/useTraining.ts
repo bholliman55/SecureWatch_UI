@@ -17,8 +17,8 @@ export function useTraining() {
       ]);
       setModules(modulesData);
       setMetrics(metricsData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch training data');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : (err as { message?: string })?.message ?? 'Failed to fetch training data');
     } finally {
       setLoading(false);
     }

@@ -9,8 +9,7 @@ import {
   ChevronRight,
   RefreshCw,
   Play,
-  Search,
-  Filter
+  Search
 } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { useScannerData } from '../hooks/useScannerData';
@@ -73,16 +72,20 @@ export default function Scanner() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-        <p className="text-red-800 dark:text-red-400">{error}</p>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
+      {error && (
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-center justify-between gap-4">
+          <p className="text-red-800 dark:text-red-400 text-sm">{error}</p>
+          <button
+            onClick={refresh}
+            className="flex items-center gap-2 px-3 py-1.5 bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/60 text-sm font-medium shrink-0"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Retry
+          </button>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">

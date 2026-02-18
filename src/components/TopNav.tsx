@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react';
 import { Shield, Sun, Moon, RefreshCw, Settings, User } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
-export default function TopNav() {
+interface TopNavProps {
+  isConnected?: boolean;
+  lastUpdated?: string | null;
+  onRefresh?: () => void | Promise<void>;
+}
+
+export default function TopNav({ onRefresh }: TopNavProps) {
   const { theme, toggleTheme } = useTheme();
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -29,7 +35,11 @@ export default function TopNav() {
   };
 
   const handleRefresh = () => {
-    window.location.reload();
+    if (onRefresh) {
+      void Promise.resolve(onRefresh());
+    } else {
+      window.location.reload();
+    }
   };
 
   return (

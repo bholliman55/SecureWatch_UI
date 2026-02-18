@@ -40,8 +40,12 @@ export default function NewScanModal({ isOpen, onClose, onScanCreated }: NewScan
       onClose();
       setScanType('vulnerability');
       setTarget('');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create scan');
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : (err as { message?: string })?.message ?? 'Failed to create scan';
+      setError(message);
     } finally {
       setLoading(false);
     }

@@ -68,6 +68,17 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173).
 
+### Troubleshooting
+
+- **"column X does not exist" (e.g. assets.name, assets.id)**  
+  Run **`supabase/ensure_schema.sql`** in the Supabase SQL Editor. It adds every column the app expects to each table. Run it once; safe to run multiple times. Tables must exist first (run the create_* migrations if you haven’t).
+
+- **"asset_id does not exist" or RLS errors**  
+  Run **`supabase/fix_asset_id_and_policies.sql`**, then **`supabase/apply_rls_and_seed.sql`** in the SQL Editor.
+
+- **"Failed to create scan" / vulnerabilities or assets not showing**  
+  Run **`ensure_schema.sql`**, then **`apply_rls_and_seed.sql`**. Use **Retry** on the error banner after running the scripts.
+
 ## Data Flow
 
 | View        | Data Source          | Supabase Tables                     |

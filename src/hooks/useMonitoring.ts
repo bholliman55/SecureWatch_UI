@@ -17,8 +17,8 @@ export function useMonitoring() {
       ]);
       setChecks(checksData);
       setMetrics(metricsData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch monitoring data');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : (err as { message?: string })?.message ?? 'Failed to fetch monitoring data');
     } finally {
       setLoading(false);
     }

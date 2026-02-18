@@ -19,10 +19,10 @@ export const complianceService = {
   async getAudits(): Promise<ComplianceAudit[]> {
     const { data, error } = await supabase
       .from('compliance_audits')
-      .select('*')
+      .select('id, framework, requirement, status, score, evidence, last_audit, next_audit, owner, notes, created_at, updated_at')
       .order('last_audit', { ascending: false });
 
-    if (error) throw error;
+    if (error) throw new Error(error.message);
     return data || [];
   },
 

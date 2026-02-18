@@ -19,10 +19,10 @@ export const trainingService = {
   async getModules(): Promise<TrainingModule[]> {
     const { data, error } = await supabase
       .from('training_modules')
-      .select('*')
+      .select('id, title, category, description, duration_minutes, completion_rate, passing_score, status, total_enrolled, total_completed, created_at, updated_at')
       .order('created_at', { ascending: false });
 
-    if (error) throw error;
+    if (error) throw new Error(error.message);
     return data || [];
   },
 

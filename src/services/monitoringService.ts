@@ -18,10 +18,10 @@ export const monitoringService = {
   async getChecks(): Promise<MonitoringCheck[]> {
     const { data, error } = await supabase
       .from('monitoring_checks')
-      .select('*')
+      .select('id, check_name, check_type, target, status, last_check, response_time, uptime_percentage, details, created_at, updated_at')
       .order('last_check', { ascending: false });
 
-    if (error) throw error;
+    if (error) throw new Error(error.message);
     return data || [];
   },
 

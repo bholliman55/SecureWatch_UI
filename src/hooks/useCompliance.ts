@@ -17,8 +17,8 @@ export function useCompliance() {
       ]);
       setAudits(auditsData);
       setMetrics(metricsData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch compliance data');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : (err as { message?: string })?.message ?? 'Failed to fetch compliance data');
     } finally {
       setLoading(false);
     }
